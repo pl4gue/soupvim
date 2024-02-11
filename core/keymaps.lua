@@ -8,36 +8,41 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+local map = vim.keymap.set
+
 -- :noh for searches
-vim.keymap.set('n', '<Leader>hh', ':noh<CR>')
+map('n', '<Leader>hh', ':noh<CR>')
 
 -- open Lexplore 15 columns wide
-vim.keymap.set('n', '<Leader>e', ':silent Lex<CR>')
+map('n', '<Leader>e', ':silent Lex<CR>')
 
 -- re-source config
-vim.keymap.set('n', '<Leader>so', ':source<CR>')
+map('n', '<Leader>so', ':source<CR>')
 
 -- (Visual mode) Shift + K/J moves blocks of lines
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+map('v', 'K', ":m '<-2<CR>gv=gv")
+map('v', 'J', ":m '>+1<CR>gv=gv")
 
 -- Better behavior with Shift J
 -- cursor wont go to the end of the line whenever you append
-vim.keymap.set('n', 'J', "mzJ`z")
+map('n', 'J', "mzJ`z")
 
 -- Default behavior if used with <Leader>
-vim.keymap.set('n', '<Leader>J', "J")
+map('n', '<Leader>J', "J")
 
 -- Non-disorienting jumping to the middle of a document
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-u>', '<C-u>zz')
 
 -- Non-disorienting jumping to search results
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
 
 -- Good paste that doesnt forget shit
-vim.keymap.set('x', '<Leader>p', '\"_dP')
+map('x', '<Leader>p', '\"_dP')
+
+map({'n', 'x'}, '<Leader>y', '\"+y')
+map({'n', 'x'}, '<Leader>Y', '\"+Y')
 
 -- Replace using the contents of the word under the cursor.
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+map("n", "<Leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

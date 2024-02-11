@@ -14,9 +14,8 @@ return {
 
 
   config = function()
-    require'nvim-treesitter.configs'.setup {
+    require('nvim-treesitter.configs').setup({
       ensure_installed = {'c', 'lua', 'vim', 'vimdoc', 'query', 'go'},
-
       sync_install = false,
 
       auto_install = true,
@@ -24,8 +23,13 @@ return {
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false
-      }
-    }
+      },
+
+      -- It's just here cuz my nvim diagnostics
+      -- cries about not having these :/
+      ignore_install = {},
+      modules = {},
+    })
   end
 }
 
