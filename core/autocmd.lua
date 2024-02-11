@@ -6,9 +6,10 @@
 
 local a = vim.api
 local fn = vim.fn
+local autocmd = a.nvim_create_autocmd
 
 -- closes Lexplore automatically when entering a file
-a.nvim_create_autocmd('BufWinEnter', {
+autocmd('BufWinEnter', {
   callback = function()
     if fn.getbufvar(fn.winbufnr(fn.winnr()), '&filetype') ~= 'netrw' then
       for bufn=1,fn.bufnr('$') do
@@ -23,9 +24,12 @@ a.nvim_create_autocmd('BufWinEnter', {
 })
 
 -- Highlights Yanked text
-a.nvim_create_autocmd('TextYankPost',{
+autocmd('TextYankPost',{
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({
+      higroup = 'IncSearch',
+      timeout = 150
+    })
   end,
-  pattern = '*'
+  pattern = '*',
 })

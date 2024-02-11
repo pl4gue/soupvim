@@ -32,5 +32,12 @@ vim.keymap.set('n', '<Leader>J', "J")
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 
+-- Non-disorienting jumping to search results
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
 -- Good paste that doesnt forget shit
-vim.keymap.set('x', '<leader>p', '\"_dP')
+vim.keymap.set('x', '<Leader>p', '\"_dP')
+
+-- Replace using the contents of the word under the cursor.
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
