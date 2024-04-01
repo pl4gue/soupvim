@@ -30,10 +30,25 @@ return {
     vim.keymap.set('n', '<Leader>fg', builtin.live_grep, {})
     vim.keymap.set('n', '<Leader>fb', builtin.buffers, {})
     vim.keymap.set('n', '<Leader>fh', builtin.help_tags, {})
+    vim.keymap.set('n', '<Leader>fc', builtin.colorscheme, {})
+
+    vim.keymap.set('n', '<Leader>fd', builtin.diagnostics , {})
 
     -- Telescope Setup
 
     telescope.setup({
+      defaults = {
+        mappings = {
+          i = { ["<C-q>"] = require("trouble.providers.telescope").smart_open_with_trouble },
+          n = { ["<C-q>"] = require("trouble.providers.telescope").smart_open_with_trouble }
+        }
+      },
+      pickers = {
+        colorscheme = {
+          enable_preview = true
+        }
+      },
+
       extensions = {
         fzf = {
           fuzzy = true,                    -- false will only do exact matching
@@ -44,6 +59,6 @@ return {
       }
     })
 
-    telescope.load_extension('fzf')
+    telescope.load_extension('fzf')       -- NOTE: Could try fzy later
   end
 }

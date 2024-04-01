@@ -13,7 +13,6 @@ o.incsearch = true
 o.smartcase = true
 o.hlsearch = true
 
-
 -- Indents, spaces
 o.autoindent = true
 o.smartindent = true
@@ -22,21 +21,19 @@ o.shiftwidth = 2
 o.softtabstop = 2
 o.expandtab = true
 
-
 -- UI
-o.background = 'dark'
+o.background = "dark"
 o.number = true
 o.relativenumber = true
-o.signcolumn = 'number'
-o.list = true
-o.listchars:append({ tab = '»-' })
-o.listchars:append({ trail = '.' })
-o.listchars:append({ extends = '»' })
-o.listchars:append({ precedes = '«' })
-o.fillchars:append({ eob = ' ', fold = ' ', foldsep = ' ', foldopen = '', foldclose = '' })
+o.signcolumn = "number"
+o.list = false
+o.listchars:append({ tab = "»-" })
+o.listchars:append({ trail = "." })
+o.listchars:append({ extends = "»" })
+o.listchars:append({ precedes = "«" })
+o.fillchars:append({ eob = " ", fold = " ", foldsep = " ", foldopen = "", foldclose = "" })
 o.confirm = true
 o.pumheight = 10
-
 
 -- Text
 o.textwidth = 100
@@ -45,24 +42,33 @@ o.linebreak = true
 o.breakindent = true
 
 -- Folding
-o.foldcolumn = '1'
+o.foldcolumn = "1"
 o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldenable = true
+o.foldtext = 'v:lua.foldText()'
+
+function _G.foldText()
+  local line = vim.fn.getline(vim.v.foldstart)
+  line = vim.fn.substitute(line, [[/\*\|\*/\|{{{\d\=]], '', 'g')
+  local lcount = vim.v.foldend - vim.v.foldstart - 1
+
+  return line .. " ⋯ " .. lcount
+end
 
 -- Clipboard
-o.clipboard = 'unnamedplus'
+o.clipboard = "unnamedplus"
 
 -- Mouse
-o.mouse = 'a'
+o.mouse = "a"
 
 -- Cursor
 o.cursorline = true
 o.cursorcolumn = false
 o.guicursor = {
-    'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
-    'i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
-    'r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100',
+	"n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+	"i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+	"r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100",
 }
 
 -- Split
@@ -74,8 +80,10 @@ o.undofile = true
 
 -- Completion
 o.wildmenu = true
-o.wildmode = 'list:full'
-o.complete.opt = {'menu', 'menuone', 'noselect'}
+o.wildmode = "list:full"
+o.complete = {
+  opt = { "menu", "menuone", "noselect" }
+}
 
 -- NetRW
 g.netrw_banner = false

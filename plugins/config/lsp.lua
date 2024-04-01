@@ -4,45 +4,92 @@
 --  │                                                          │
 --  ╰──────────────────────────────────────────────────────────╯
 
--- Neodev
+local map = function(mode, bind, func)
+  vim.keymap.set(mode, bind, func, { buffer = bufnr, remap = false })
+end
+
+-- ─[ Neodev ]─────────────────────────────────────────────────────────
+--
 -- Full signature help, docs and completion for the nvim lua API.
 
-require('neodev').setup({})
+require("neodev").setup({})
 
--- LspZero 
+-- ─[ LspZero ]────────────────────────────────────────────────────────
+--
 -- Automates a tedious process of configuring every single LSP Server
 
-local lsp = require('lsp-zero')
+local lsp = require("lsp-zero")
 
--- Sets LSP keymaps
+-- ─[ Trouble ]────────────────────────────────────────────────────────
+--
+-- Pretty list of diagnostics, telescope, quickfix, etc.
 
-lsp.on_attach(function(_, bufnr)
-  local map = function (mode, bind, func)
-    vim.keymap.set(mode, bind, func, {buffer = bufnr, remap = false})
-  end
+local trouble = require("trouble")
+trouble.setup({
+  icons = false,
+  fold_open = "v",
+  fold_closed = ">",
+  indent_lines = false,
+  signs = {
+    error = "error",
+    warning = "warn",
+    hint = "hint",
+    information = "info"
+  },
+  use_diagnostic_signs = false,
+  auto_preview = false,
+})
 
-  map('n', 'gd', function () vim.lsp.buf.definition() end)
-  map('n', 'K', function () vim.lsp.buf.hover() end)
-  map('n', '<Leader>vws', function () vim.lsp.buf.workspace_symbol() end)
-  map('n', '<Leader>vd', function () vim.diagnostic.open_float() end)
-  map('n', '[d', function () vim.diagnostic.definition() end)
-  map('n', ']d', function () vim.diagnostic.definition() end)
-  map('n', '<Leader>vca', function () vim.lsp.buf.code_action() end)
-  map('n', '<Leader>vrr', function () vim.lsp.buf.references() end)
-  map('n', '<F2>', function () vim.lsp.buf.rename() end)
-  map('n', '<C-h>', function () vim.lsp.buf.signature_help() end)
-  map('n', '<Leader>f', function () vim.lsp.buf.format() end)
+local trouble_jump = function(fn)
+  trouble[fn]({ skip_groups = true, jump = true })
+  vim.diagnostic.show()
+end
+
+map("n", "<Leader>tt", trouble.toggle)
+map("n", "<Leader>tq", function() trouble.toggle("quickfix") end)
+map("n", "<Leader>tw", function() trouble.toggle("workspace_diagnostics") end)
+
+-- ─[ Keymaps ]────────────────────────────────────────────────────────
+--
+-- gd          -> Go to definition
+-- K           -> Hover
+-- <Leader>vws -> Workspace Symbols
+-- <Leader>vd  -> Open diagnostic in float
+-- <Leader>vca -> Code Actions
+-- <Leader>vrr -> Reference List
+--
+-- [d          -> Go to previous diagnostic in trouble
+-- ]d          -> Go to next diagnostic in trouble
+--
+-- <Leader>vrn -> Rename object
+-- <C-h>       -> Signature help
+-- <Leader>f   -> Format file
+
+lsp.on_attach(function(_, _)
+  map("n", "gd", vim.lsp.buf.definition)
+  map("n", "K", vim.lsp.buf.hover)
+  map("n", "<Leader>vws", vim.lsp.buf.workspace_symbol)
+  map("n", "<Leader>vd", vim.diagnostic.open_float)
+  map("n", "<Leader>vca", vim.lsp.buf.code_action)
+  map("n", "<Leader>vrr", vim.lsp.buf.references)
+
+  map("n", "[d", function() trouble_jump("previous") end)
+  map("n", "]d", function() trouble_jump("next") end)
+
+  map("n", "<Leader>vrn", vim.lsp.buf.rename)
+  map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help)
+  map("n", "<Leader>f", vim.lsp.buf.format)
 end)
 
+lsp.setup()
 
--- Automatic setup of LSP servers
+-- ─[ LSP servers config ]─────────────────────────────────────────────
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {'clangd', 'lua_ls',},
+require("mason").setup({})
+require("mason-lspconfig").setup({
+  ensure_installed = { "clangd", "lua_ls" },
   handlers = {
     lsp.default_setup,
-
     --[[
 
         If you need to configure a language server installed by mason.nvim,
@@ -57,81 +104,5 @@ require('mason-lspconfig').setup({
         end,
 
     ]]
-  }
-})
-
-
--- Autocompletion
-
-local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
-
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-
-    -- Enter or Tab to complete
-    -- If Enter is pressed but none item is selected then it's a new line.
-    -- If Tab is pressed but none item is selected then it autocompletes.
-
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
-    ['<Tab>'] = cmp.mapping.confirm({select = true}),
-
-    -- Ctrl+j or k will move the items, arrows up and down also works.
-    ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-
-    -- Ctrl+Space or Ctril+i to trigger completion menu
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-i>'] = cmp.mapping.complete(),
-
-    -- Navigate between snippet placeholder
-    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-    -- Scroll up and down in the completion documentation
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  }),
-
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'buffer', },
-    { name = 'calc', },
-    {
-      name = 'path',
-      option = {
-        trailing_slash = true,
-        label_trailing_slash = true,
-      } 
-    },
   },
-
-  experimental = {
-    -- Adds ghost text under cursor on suggestion.
-    ghost_text = true
-  }
-})
-
--- `/` cmdline setup.
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- `:` cmdline setup.
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    {
-      name = 'cmdline',
-      option = {
-        ignore_cmds = { 'Man', '!' }
-      }
-    }
-  })
 })

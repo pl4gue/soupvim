@@ -4,45 +4,45 @@
 --  │                                                          │
 --  ╰──────────────────────────────────────────────────────────╯
 
-
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local map = vim.keymap.set
 
--- :noh for searches
-map('n', '<Leader>hh', ':noh<CR>')
+map("n", "<Leader>hh", ":noh<CR>", { desc = ":noh for searches" })
 
--- open Lexplore 15 columns wide
-map('n', '<Leader>e', ':silent Lex<CR>')
+map("n", "<Leader>e", ":silent Lex<CR>", { silent = true, desc = "Opens Lexplore as the file explorer." })
 
--- re-source config
-map('n', '<Leader>so', ':source<CR>')
+map("n", "<Leader>so", ":source<CR>", { desc = "Re-source configuration." })
 
--- (Visual mode) Shift + K/J moves blocks of lines
-map('v', 'K', ":m '<-2<CR>gv=gv")
-map('v', 'J', ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "When on visual mode, K will move up blocks of lines." })
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "When on visual mode, J will move down blocks of lines." })
 
--- Better behavior with Shift J
--- cursor wont go to the end of the line whenever you append
-map('n', 'J', "mzJ`z")
+map("n", "J", "mzJ`z", { desc = "When using J the cursor won't go to the end of the line." })
 
--- Default behavior if used with <Leader>
-map('n', '<Leader>J', "J")
+map("n", "<Leader>J", "J", { desc = "Default J behavior if used with <Leader>." })
 
--- Non-disorienting jumping to the middle of a document
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-u>', '<C-u>zz')
+map("n", "<C-d>", "<C-d>zz", { desc = "Non-disorienting jump dowm in the middle of a document." })
+map("n", "<C-u>", "<C-u>zz", { desc = "Non-disorienting jump up in the middle of a document." })
 
--- Non-disorienting jumping to search results
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+map("n", "n", "nzzzv", { desc = "Non-disorienting jump to next search result." })
+map("n", "N", "Nzzzv", { desc = "Non-disorienting jump to previous search result." })
 
--- Good paste that doesnt forget shit
-map('x', '<Leader>p', '\"_dP')
+map("x", "<Leader>p", '"_dP', { desc = "Good paste that doesnt forget shit." })
 
-map({'n', 'x'}, '<Leader>y', '\"+y')
-map({'n', 'x'}, '<Leader>Y', '\"+Y')
+map({ "n", "x" }, "<Leader>y", '"+y', { desc = "y but on system clipboard." })
+map({ "n", "x" }, "<Leader>Y", '"+Y', { desc = "Y but on system clipboard." })
 
--- Replace using the contents of the word under the cursor.
-map("n", "<Leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+map(
+	"n",
+	"<Leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Replace using the contents of the word under the cursor." }
+)
+
+-- Go to window with <Leader><window number>
+for i = 1, 6 do
+	local lhs = "<Leader>" .. i
+	local rhs = i .. "<C-W>w"
+	map("n", lhs, rhs, { desc = "Move to window " .. i })
+end
