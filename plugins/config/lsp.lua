@@ -21,7 +21,6 @@ require("neodev").setup({})
 local lsp = require("lsp-zero")
 
 -- ─[ Trouble ]────────────────────────────────────────────────────────
---
 -- Pretty list of diagnostics, telescope, quickfix, etc.
 
 local trouble = require("trouble")
@@ -90,19 +89,30 @@ require("mason-lspconfig").setup({
   ensure_installed = { "clangd", "lua_ls" },
   handlers = {
     lsp.default_setup,
+
     --[[
 
         If you need to configure a language server installed by mason.nvim,
         add a "handler function" to the handlers option. Something like this:
 
-        example_server = function()
-          require('lsp-config').example_server.setup({
+        server_name = function()
+          require('lsp-config').server_name.setup({
 
             -- Add your custom config here
 
           })
         end,
-
     ]]
+
+    lua_ls = function()
+      local lua_opts = lsp.nvim_lua_ls({
+        settings = { Lua = { diagnostics = { disable = { 'missing-fields' } } } }
+      }
+      )
+
+      require('lspconfig').lua_ls.setup(lua_opts)
+    end,
   },
 })
+require("mason-lspconfig").setup_handlers {
+}
