@@ -107,8 +107,7 @@ require("mason-lspconfig").setup({
     lua_ls = function()
       local lua_opts = lsp.nvim_lua_ls({
         settings = { Lua = { diagnostics = { disable = { 'missing-fields' } } } }
-      }
-      )
+      })
 
       require('lspconfig').lua_ls.setup(lua_opts)
     end,
