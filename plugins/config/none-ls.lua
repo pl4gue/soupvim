@@ -17,7 +17,15 @@ require("mason-null-ls").setup({
     completion = true,
     hover = true,
   },
-  ensure_installed = {},
+  ensure_installed = (function ()
+    local ensure_installed = {"stylua", "gofmt"}
+
+    if not (vim.loop.os_uname().sysname == "Windows_NT") then
+      table.insert(ensure_installed,"blackd-client")
+    end
+
+    return ensure_installed
+  end)(),
   automatic_installation = true,
   handlers = {},
 })
@@ -64,9 +72,6 @@ local sources = {
   null_ls.builtins.formatting.gofumpt,           -- Go formatting
   null_ls.builtins.formatting.goimports_reviser, -- Autoimporting
   null_ls.builtins.formatting.golines,           -- Formats imports
-
-  -- Shell Languages
-  null_ls.builtins.code_actions.bashls,
 
   -- Python
   null_ls.builtins.formatting.black

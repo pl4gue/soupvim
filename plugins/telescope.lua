@@ -40,8 +40,8 @@ return {
     telescope.setup({
       defaults = {
         mappings = {
-          i = { ["<C-q>"] = require("trouble.providers.telescope").smart_open_with_trouble },
-          n = { ["<C-q>"] = require("trouble.providers.telescope").smart_open_with_trouble }
+          i = { ["<C-q>"] = require("trouble.sources.telescope").open },
+          n = { ["<C-q>"] = require("trouble.sources.telescope").open }
         }
       },
       pickers = {

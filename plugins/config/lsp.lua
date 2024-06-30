@@ -86,7 +86,7 @@ lsp.setup()
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-  ensure_installed = { "clangd", "lua_ls" },
+  ensure_installed = { "clangd", "lua_ls", "bashls", },
   handlers = {
     lsp.default_setup,
 
