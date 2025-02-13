@@ -5,7 +5,7 @@
 --  ╰──────────────────────────────────────────────────────────╯
 
 local map = function(mode, bind, func)
-  vim.keymap.set(mode, bind, func, { buffer = bufnr, remap = false })
+	vim.keymap.set(mode, bind, func, { buffer = bufnr, remap = false })
 end
 
 -- ─[ Neodev ]─────────────────────────────────────────────────────────
@@ -25,28 +25,32 @@ local lsp = require("lsp-zero")
 
 local trouble = require("trouble")
 trouble.setup({
-  icons = false,
-  fold_open = "v",
-  fold_closed = ">",
-  indent_lines = false,
-  signs = {
-    error = "error",
-    warning = "warn",
-    hint = "hint",
-    information = "info"
-  },
-  use_diagnostic_signs = false,
-  auto_preview = false,
+	icons = false,
+	fold_open = "v",
+	fold_closed = ">",
+	indent_lines = false,
+	signs = {
+		error = "error",
+		warning = "warn",
+		hint = "hint",
+		information = "info",
+	},
+	use_diagnostic_signs = false,
+	auto_preview = false,
 })
 
 local trouble_jump = function(fn)
-  trouble[fn]({ skip_groups = true, jump = true })
-  vim.diagnostic.show()
+	trouble[fn]({ skip_groups = true, jump = true })
+	vim.diagnostic.show()
 end
 
 map("n", "<Leader>tt", trouble.toggle)
-map("n", "<Leader>tq", function() trouble.toggle("quickfix") end)
-map("n", "<Leader>tw", function() trouble.toggle("workspace_diagnostics") end)
+map("n", "<Leader>tq", function()
+	trouble.toggle("quickfix")
+end)
+map("n", "<Leader>tw", function()
+	trouble.toggle("workspace_diagnostics")
+end)
 
 -- ─[ Keymaps ]────────────────────────────────────────────────────────
 --
@@ -65,19 +69,23 @@ map("n", "<Leader>tw", function() trouble.toggle("workspace_diagnostics") end)
 -- <Leader>f   -> Format file
 
 lsp.on_attach(function(_, _)
-  map("n", "gd", vim.lsp.buf.definition)
-  map("n", "K", vim.lsp.buf.hover)
-  map("n", "<Leader>vws", vim.lsp.buf.workspace_symbol)
-  map("n", "<Leader>vd", vim.diagnostic.open_float)
-  map("n", "<Leader>vca", vim.lsp.buf.code_action)
-  map("n", "<Leader>vrr", vim.lsp.buf.references)
+	map("n", "<Leader>gd", vim.lsp.buf.definition)
+	map("n", "K", vim.lsp.buf.hover)
+	map("n", "<Leader>vws", vim.lsp.buf.workspace_symbol)
+	map("n", "<Leader>vd", vim.diagnostic.open_float)
+	map("n", "<Leader>vca", vim.lsp.buf.code_action)
+	map("n", "<Leader>vrr", vim.lsp.buf.references)
 
-  map("n", "[d", function() trouble_jump("previous") end)
-  map("n", "]d", function() trouble_jump("next") end)
+	map("n", "[d", function()
+		trouble_jump("previous")
+	end)
+	map("n", "]d", function()
+		trouble_jump("next")
+	end)
 
-  map("n", "<Leader>vrn", vim.lsp.buf.rename)
-  map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help)
-  map("n", "<Leader>f", vim.lsp.buf.format)
+	map("n", "<Leader>vrn", vim.lsp.buf.rename)
+	map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help)
+	map("n", "<Leader>f", vim.lsp.buf.format)
 end)
 
 lsp.setup()
@@ -86,11 +94,11 @@ lsp.setup()
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-  ensure_installed = { "clangd", "lua_ls", "bashls", },
-  handlers = {
-    lsp.default_setup,
+	ensure_installed = { "clangd", "lua_ls", "bashls" },
+	handlers = {
+		lsp.default_setup,
 
-    --[[
+		--[[
 
         If you need to configure a language server installed by mason.nvim,
         add a "handler function" to the handlers option. Something like this:
@@ -104,14 +112,13 @@ require("mason-lspconfig").setup({
         end,
     ]]
 
-    lua_ls = function()
-      local lua_opts = lsp.nvim_lua_ls({
-        settings = { Lua = { diagnostics = { disable = { 'missing-fields' } } } }
-      })
+		lua_ls = function()
+			local lua_opts = lsp.nvim_lua_ls({
+				settings = { Lua = { diagnostics = { disable = { "missing-fields" } } } },
+			})
 
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-  },
+			require("lspconfig").lua_ls.setup(lua_opts)
+		end,
+	},
 })
-require("mason-lspconfig").setup_handlers {
-}
+require("mason-lspconfig").setup_handlers({})
