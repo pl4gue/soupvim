@@ -13,7 +13,8 @@ function M:load_variables()
 	self.is_windows = os_name == "Windows_NT"
 	self.is_wsl = vim.fn.has("wsl") == 1
 	self.vim_path = vim.fn.stdpath("config")
-	self.soupvim_path = self.vim_path .. "\\lua\\soupvim"
+	self.path_separator = self.is_windows and "\\" or "/"
+	self.soupvim_path = self.vim_path .. self.path_separator .. "lua" .. self.path_separator .. "soupvim"
 	self.cache_dir = vim.fn.stdpath("cache")
 	self.data_dir = string.format("%s/site/", vim.fn.stdpath("data"))
 	self.home = self.is_windows and os.getenv("USERPROFILE") or os.getenv("HOME")
