@@ -7,14 +7,18 @@
 local M = {}
 
 local relative_path = function()
-	local sep = soupvim.global.is_windows and "\\" or "/"
-	local str = debug.getinfo(3).source:sub(2, -2)
-	str = soupvim.global.is_windows and str:gsub("/", "\\") or str
+	local separator = soupvim.global.path_separator
+	local opposite_separator = soupvim.global.is_windows and "/" or "\\"
+	local str = debug
+		.getinfo(3) -- gets info from the function that called the function that called this one
+		.source -- gets the file absolute path
+		:sub(2) -- removes @ that's on the beginning of the string
+		:gsub(opposite_separator, separator) -- changes every wrong separator with the one from the system
 
 	return str
-		:match("(.*" .. sep .. ")") -- gets path
-		:gsub(soupvim.global.soupvim_path:gsub("\\soupvim", ""), "") -- make path relative to soupvim
-		:gsub(sep, ".") -- replaces separator with "."
+		:match("(.*" .. separator .. ")") -- gets path
+		:gsub(soupvim.global.soupvim_path:gsub(separator .. "soupvim", ""), "") -- make path relative to soupvim
+		:gsub(separator, ".") -- replaces separator with "."
 end
 
 --- Requires lua files relative to soupvim.
@@ -35,6 +39,7 @@ end
 ---@return unknown # everything require() returns
 function M.require(path, relative)
 	relative = relative or false
+	path = path:sub(1, 1) == "." and path:sub(2) or path
 	return require((relative and relative_path() or "soupvim") .. (path and "." .. path or ""))
 end
 
