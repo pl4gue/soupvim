@@ -5,15 +5,14 @@
 --  ╰──────────────────────────────────────────────────────────╯
 
 return {
+	"mfussenegger/nvim-dap",
+	dependencies = {
+		"rcarriga/nvim-dap-ui",
+		"leoluz/nvim-dap-go",
+		"nvim-neotest/nvim-nio",
+	},
 
-  "mfussenegger/nvim-dap",
-  dependencies = {
-    "rcarriga/nvim-dap-ui",
-    "leoluz/nvim-dap-go",
-    "nvim-neotest/nvim-nio",
-  },
-
-  config = function()
-    require("soupvim.plugins.config.debug")
-  end,
+	config = function()
+		require("soupvim.plugins.debug.dap")
+	end,
 }

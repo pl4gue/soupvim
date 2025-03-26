@@ -1,15 +1,21 @@
 --  ╭───────────────────────°⌜ 赤い糸 ⌟°───────────────────────╮
 --  │                                                          │
---  │                  Linters and Formatters                  │
+--  │                         FileTree                         │
 --  │                                                          │
 --  ╰──────────────────────────────────────────────────────────╯
 
-return {
-    "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "nvimtools/none-ls.nvim" },
+local map = vim.keymap.set
 
-  config = function ()
-    require('soupvim.plugins.config.none-ls')
-  end,
+return {
+	"stevearc/oil.nvim",
+	config = function()
+		require("oil").setup({
+			default_file_explorer = true,
+			view_options = { show_hidden = true },
+			float = { border = "single" },
+			keymaps = { ["q"] = "actions.close" },
+		})
+
+		map("n", "-", require("oil").toggle_float, { desc = "Open parent directory" })
+	end,
 }

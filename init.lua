@@ -20,6 +20,5 @@
 ╰──────────────────────────────────────────────────────────╯
 ]]
 
-
-require('soupvim.core') 
-require('lazy').setup('soupvim.plugins') 
+require("soupvim.core")
+require("lazy").setup("soupvim.plugins")

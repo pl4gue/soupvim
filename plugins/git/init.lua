@@ -10,11 +10,11 @@ return {
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 
-  -- NOTE:
+	-- NOTE:
 	--  If I ever need to merge then there's this one
 	--  "sindrets/diffview.nvim",
 
-  -- NOTE:
+	-- NOTE:
 	--  If I ever want to copy a commit url or smth
 	--  "f-person/git-blame",
 
@@ -24,7 +24,7 @@ return {
 
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("soupvim.plugins.config.gitsigns")
+			require("soupvim.plugins.git.gitsigns")
 		end,
 	},
 }
