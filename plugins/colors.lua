@@ -1,12 +1,15 @@
 return {
     {
-        "nyoom-engineering/oxocarbon.nvim"
+        "nyoom-engineering/oxocarbon.nvim", lazy = true,
     },
     {
-        'Everblush/nvim',
-        name = 'everblush',
-        config = function()
-            soupvim.set_colorscheme('everblush')
-        end
+        'Everblush/nvim', name = 'everblush', lazy = true,
     },
+    {
+        "AvengeMedia/base46",
+        -- lazy = true,
+        config = function()
+            soupvim.set_colorscheme('base46-rxyhn')
+        end
+    }
 }
