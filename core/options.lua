@@ -13,9 +13,6 @@ local g = vim.g
 o.updatetime = 250 -- Decrease update time
 o.timeoutlen = 300 -- Decrease mapped sequence wait time
 
-vim.g.SOUPVIM_COLORSCHEME = vim.g.SOUPVIM_COLORSCHEME or soupvim.default_colorscheme
-vim.cmd("colorscheme " .. vim.g.SOUPVIM_COLORSCHEME)
-
 -- [ search ]
 o.incsearch = true  -- Enables incremental search, showing where the matching results are while searching
 o.hlsearch = true   -- Highlights mathing search results
@@ -95,6 +92,7 @@ g.netrw_alto = 0 -- Splits on the left
 g.netrw_winsize = 15 -- Window size of NetRW
 g.netrw_browse_split = 0
 g.netrw_chgwin = -1
+
 
 local function get_fold(lnum)
 	if vim.fn.foldlevel(lnum) <= vim.fn.foldlevel(lnum - 1) then return ' ' end

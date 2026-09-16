@@ -45,10 +45,6 @@ soupvim.create_autocmd("ColorScheme", {
 -- Loads last used colorscheme
 soupvim.create_autocmd("VimEnter", {
     callback = function()
-        if vim.g.LAST_COLORSCHEME then
-            vim.cmd("colorscheme " .. vim.g.LAST_COLORSCHEME)
-        else
-            vim.cmd("colorscheme " .. soupvim.default_colorscheme)
-        end
+        vim.cmd("colorscheme " .. vim.g.LAST_COLORSCHEME or soupvim.default_colorscheme)
     end,
 })
