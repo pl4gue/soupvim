@@ -13,6 +13,9 @@ local map = vim.keymap.set
 
 map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = "Clear highlights on search when pressing <Esc> in normal mode." })
 
+map("n", "<C-S-j>", "<Nop>")
+map("n", "<C-S-k>", "<Nop>")
+
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "When on visual mode, K will move up blocks of lines." })
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "When on visual mode, J will move down blocks of lines." })
 

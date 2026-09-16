@@ -1,14 +1,15 @@
 return {
-    'neovim/nvim-lspconfig',
+    'mason-org/mason-lspconfig.nvim',
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { 'mason-org/mason-lspconfig.nvim' },
-      { 'mason-org/mason.nvim' },
-      { 'WhoIsSethDaniel/mason-tool-installer.nvim' } ,
+        'neovim/nvim-lspconfig',
+        { 'mason-org/mason.nvim', opts = {} },
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      { "pl4gue/no-trouble.nvim" },
+        "pl4gue/no-trouble.nvim",
     },
 
     config = function()
-      soupvim.require('lspconfig', true)
+        soupvim.require('lspconfig', true)
     end
 }

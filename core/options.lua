@@ -13,7 +13,8 @@ local g = vim.g
 o.updatetime = 250 -- Decrease update time
 o.timeoutlen = 300 -- Decrease mapped sequence wait time
 
-soupvim.set_colorscheme(soupvim.coloscheme)
+vim.g.SOUPVIM_COLORSCHEME = vim.g.SOUPVIM_COLORSCHEME or soupvim.default_colorscheme
+vim.cmd("colorscheme " .. vim.g.SOUPVIM_COLORSCHEME)
 
 -- [ search ]
 o.incsearch = true  -- Enables incremental search, showing where the matching results are while searching

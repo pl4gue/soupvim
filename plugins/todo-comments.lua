@@ -1,6 +1,7 @@
 local map = vim.keymap.set
 return {
     "folke/todo-comments.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local todo = require("todo-comments")

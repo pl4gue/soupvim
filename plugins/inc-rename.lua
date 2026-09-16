@@ -1,10 +1,11 @@
 return {
-	"smjonas/inc-rename.nvim",
-	config = function()
-		require("inc_rename").setup()
-
-		vim.keymap.set("n", "<leader>rn", function()
-			return ":IncRename " .. vim.fn.expand("<cword>")
-		end, { expr = true })
-	end,
+    "smjonas/inc-rename.nvim",
+    opts = { input_buffer_type = "snacks", },
+    cmd = "IncRename",
+    keys = {
+        "<leader>rn",
+        function() return ":IncRename " .. vim.fn.expand("<cword>") end,
+        mode = "n",
+        expr = true,
+    },
 }

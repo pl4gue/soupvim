@@ -1,6 +1,5 @@
-local map = function(mode, lhs, rhs, desc)
-    vim.keymap.set(mode, lhs, rhs, { desc = desc })
-end
+local no_trouble = require("no-trouble")
+no_trouble.setup()
 
 soupvim.lsp_on_attach(function(event)
     ---@diagnostic disable-next-line: redefined-local
@@ -15,6 +14,8 @@ soupvim.lsp_on_attach(function(event)
     map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, "Signature help")
     map("n", "<Leader>f", vim.lsp.buf.format, "Format file")
 
+    map("n", "[d", no_trouble.actions.prev, "Go to previous diagnostic in workspace (no-trouble)")
+    map("n", "]d", no_trouble.actions.next, "Go to next diagnostic in workspace (no-trouble)")
 
     -- The following code creates a keymap to toggle inlay hints in your
     -- code, if the language server you are using supports them
@@ -26,17 +27,14 @@ soupvim.lsp_on_attach(function(event)
     end
 end)
 
-local no_trouble = require("no-trouble")
-no_trouble.setup()
-
-map("n", "[d", no_trouble.actions.prev, "Go to previous diagnostic in workspace (no-trouble)")
-map("n", "]d", no_trouble.actions.next, "Go to next diagnostic in workspace (no-trouble)")
 
 local servers = {
     -- clangd = {},
     -- bashls = {},
     -- pyright = {},
     -- gopls = {},
+
+    rust_analyzer = {},
 
     lua_ls = {
         on_init = function(client)
@@ -78,9 +76,6 @@ local servers = {
         },
     },
 }
-
-require('mason').setup {}
-
 
 local ensure_installed = vim.tbl_keys(servers or {})
 -- You can add other tools here that you want Mason to install

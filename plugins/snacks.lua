@@ -6,6 +6,18 @@ return {
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
         picker = { enabled = true },
+        input = {
+            enabled = true,
+            relative = "cursor",
+        },
+        styles = {
+            input = {
+                relative = "cursor",
+                width = function()
+                    return math.max(30, 90)
+                end
+            },
+        }
     },
 
 
