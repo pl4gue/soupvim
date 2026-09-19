@@ -20,6 +20,7 @@
 ╰──────────────────────────────────────────────────────────╯
 ]]
 
-_G.soupvim = require('soupvim.utils')
-soupvim.require('core')
+_G.soupvim = require("soupvim.utils")
+soupvim.require("core")
+soupvim.setup_user_command()
 soupvim.setup_plugins()

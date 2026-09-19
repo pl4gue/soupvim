@@ -1,50 +1,44 @@
 return {
-    "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+	"jay-babu/mason-null-ls.nvim",
+	event = "VeryLazy",
+	opts = {
+		ensure_installed = {
+			"stylua",
+		},
+	},
 
-    dependencies = {
-        "nvimtools/none-ls.nvim",
-        { "zeioth/none-ls-autoload.nvim", event = { "BufEnter" } },
-    },
+	dependencies = {
+		{ "mason-org/mason.nvim", event = "VeryLazy", opts = {} },
+		{
+			"nvimtools/none-ls.nvim",
+			event = "VeryLazy",
+			main = "null-ls",
+			opts = {
+				on_attach = function(client, bufnr)
+					local group = vim.api.nvim_create_augroup("LspFormatting", {})
 
-    config = function()
-        local null_ls = require("null-ls")
+					if client.supports_method("textDocument/formatting") then
+						vim.api.nvim_clear_autocmds({
+							group = group,
+							buffer = bufnr,
+						})
 
-        null_ls.setup({
-            on_attach = function(client, bufnr)
-                local format_on_save = vim.api.nvim_create_augroup("LspFormatting", {})
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							group = group,
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.format({ async = false })
+							end,
+						})
+					end
+				end,
+			},
+		},
 
-                if client.supports_method("textDocument/formatting") then
-                    vim.api.nvim_clear_autocmds({ group = format_on_save, buffer = bufnr })
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        group = format_on_save,
-                        buffer = bufnr,
-                        callback = function()
-                            vim.lsp.buf.format({ async = false })
-                        end,
-                    })
-                end
-            end,
-        })
-
-        require("mason-null-ls").setup({
-            ensure_installed = {
-                -- Lua
-                "stylua",
-
-                -- Python
-                "black",
-
-                -- Golang
-                "gofumpt",
-                "goimports_reviser",
-                "golines",
-
-                -- Web
-                "prettierd",
-            },
-        })
-
-        require("none-ls-autoload").setup({})
-    end,
+		{
+			"zeioth/none-ls-autoload.nvim",
+			event = "VeryLazy",
+			opts = {},
+		},
+	},
 }
