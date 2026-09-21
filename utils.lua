@@ -180,6 +180,7 @@ end
 function M.setup_plugins()
 	vim.pack.add({ "https://github.com/zuqini/zpack.nvim" })
 	require("zpack").setup({
+		-- lazy = true,
 		defaults = { confirm = false },
 		spec = { import = "soupvim.plugins" },
 	})
@@ -191,25 +192,6 @@ function M.lsp_on_attach(callback)
 		desc = "Soupvim LSP attach",
 		callback = callback,
 	})
-end
-
-function M.pad_banner(banner, size)
-	local missing = size - #banner
-
-	if missing <= 0 then
-		return banner
-	end
-
-	local before = math.floor(missing / 2)
-	local after = missing - before
-
-	for _ = 1, before do
-		table.insert(banner, 1, "")
-	end
-
-	for _ = 1, after do
-		table.insert(banner, "")
-	end
 end
 
 M:load_globals()

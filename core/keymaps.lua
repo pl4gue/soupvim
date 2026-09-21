@@ -20,8 +20,8 @@ map("n", "<Leader>J", "J", { desc = "Default J behavior if used with <Leader>." 
 
 map("n", "<C-d>", "<C-d>zz", { desc = "Non-disorienting jump dowm in the middle of a document." })
 map("n", "<C-u>", "<C-u>zz", { desc = "Non-disorienting jump up in the middle of a document." })
-map("n", "n", "nzzzv",       { desc = "Non-disorienting jump to next search result." })
-map("n", "N", "Nzzzv",       { desc = "Non-disorienting jump to previous search result." })
+map("n", "n", "nzzzv", { desc = "Non-disorienting jump to next search result." })
+map("n", "N", "Nzzzv", { desc = "Non-disorienting jump to previous search result." })
 
 map("x", "<Leader>p", '"_dP', { desc = "Good paste that doesnt forget shit." })
 
@@ -39,17 +39,13 @@ map(
 	{ desc = "Replace using the contents of the word under the cursor." }
 )
 
-map(
-    "v",
-    "<Leader>s",
-    [["hy:%s/<C-r>h//<left>]],
-	{ desc = "Replace using the contents of the selected text." }
-)
+map("v", "<Leader>s", [["hy:%s/<C-r>h//<left>]], { desc = "Replace using the contents of the selected text." })
 
-map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-map('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+map("t", "<C-w>", "<C-\\><C-n><C-w>h", { silent = true })
 
 -- Go to window with <Leader><window number>
 for i = 1, 6 do

@@ -10,6 +10,8 @@ local o = vim.o
 local opt = vim.opt
 local g = vim.g
 
+local a
+
 o.updatetime = 250 -- Decrease update time
 o.timeoutlen = 300 -- Decrease mapped sequence wait time
 
@@ -50,7 +52,7 @@ o.winborder = "single"
 o.background = "dark" -- Enables dark background
 o.number = true -- Make line numbers default
 o.relativenumber = true -- Make relative line numbers default
-o.signcolumn = "number" -- Keep signcolumn on the line number column
+o.signcolumn = "yes"
 o.showmode = false -- Don't show the mode, since it's already in the status line
 o.pumheight = 10
 
@@ -114,3 +116,5 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
+
+

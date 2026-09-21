@@ -2,16 +2,25 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		lazy = true,
-		opts = {
-			"borderless-full",
-			"hide",
-		},
+		config = function()
+			local fzf = require("fzf-lua")
+			fzf.setup({
+				"telescope",
+				fzf_opts = {
+					["--layout"] = "default", -- keeps prompt/input on top depending on fzf version, or use reverse/default
+				},
+			})
+			require("fzf-lua").register_ui_select()
+		end,
 		keys = {
-			{ "<leader><space>", ":FzfLua global<CR>", { desc = "Find Files" } },
+			{ "<leader><space>", ":FzfLua global<CR>", { desc = "Smart Find" } },
 			{ "<leader>ff", ":FzfLua files<CR>", { desc = "Find Files" } },
-			{ "<leader>fr", ":FzfLua oldfiles<CR>", { desc = "Find Files" } },
-			{ "<leader>fw", ":FzfLua live_grep<CR>", { desc = "Find Files" } },
-			{ "<leader>fW", ":FzfLua grep_cWORD<CR>", { desc = "Find Files" } },
+			{ "<leader>fF", ":FzfLua git_files<CR>", { desc = "Find Files" } },
+			{ "<leader>fb", ":FzfLua buffers<CR>", { desc = "Find Buffers" } },
+			{ "<leader>fr", ":FzfLua oldfiles<CR>", { desc = "Recent Files" } },
+			{ "<leader>fg", ":FzfLua live_grep<CR>", { desc = "Live Grep" } },
+			{ "<leader>fw", ":FzfLua grep_cWORD<CR>", { desc = "Grep WORD under cursor" } },
+			{ "<leader>fW", ":FzfLua grep_cWORD<CR>", { desc = "Grep WORD under cursor" } },
 		},
 	},
 }

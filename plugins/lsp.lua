@@ -19,22 +19,6 @@ local servers = {
 					return
 				end
 			end
-
-			client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-				runtime = {
-					version = "LuaJIT",
-					path = { "lua/?.lua", "lua/?/init.lua" },
-				},
-				workspace = {
-					checkThirdParty = false,
-					-- NOTE: this is a lot slower and will cause issues when working on your own configuration.
-					--  See https://github.com/neovim/nvim-lspconfig/issues/3189
-					library = vim.tbl_extend("force", vim.api.nvim_get_runtime_file("", true), {
-						"${3rd}/luv/library",
-						"${3rd}/busted/library",
-					}),
-				},
-			})
 		end,
 
 		settings = {
@@ -64,6 +48,7 @@ soupvim.lsp_on_attach(function(event)
 	map("n", "<Leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ctions")
 	map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, "Signature help")
 	map("n", "<Leader>f", vim.lsp.buf.format, "Format file")
+	map("n", "<Leader>rn", vim.lsp.buf.rename, "Rename")
 
 	map("n", "[d", function()
 		require("no-trouble").actions.prev()
@@ -75,11 +60,24 @@ soupvim.lsp_on_attach(function(event)
 	-- The following code creates a keymap to toggle inlay hints in your
 	-- code, if the language server you are using supports them
 	local client = vim.lsp.get_client_by_id(event.data.client_id)
-	if client and client:supports_method("textDocument/inlayHint", event.buf) then
-		map("n", "<leader>th", function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-		end, "[T]oggle Inlay [H]ints")
+	if client then
+		if client:supports_method("textDocument/inlayHint", event.buf) then
+			map("n", "<leader>th", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+			end, "[T]oggle Inlay [H]ints")
+		end
+
+		if client:supports_method("workspace/diagnostic", event.buf) then
+			vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
+		end
 	end
+
+	vim.diagnostic.config({
+		virtual_text = {
+			current_line = false,
+		},
+		virtual_lines = { current_line = true },
+	})
 end)
 
 return {
@@ -165,6 +163,12 @@ return {
 					function(cmp)
 						return cmp.snippet_active() and cmp.accept() or cmp.select_and_accept()
 					end,
+					-- function()
+					-- 	return require("sidekick").nes_jump_or_apply()
+					-- end,
+					function() -- if you are using Neovim's native inline completions
+						return vim.lsp.inline_completion.get()
+					end,
 					"snippet_forward",
 					"fallback",
 				},
@@ -186,8 +190,6 @@ return {
 
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation", "fallback_to_mappings" },
 				["<C-e>"] = { "hide", "fallback_to_mappings" },
-
-				["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
 			},
 
 			appearance = {
@@ -237,7 +239,17 @@ return {
 
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
+					},
+				},
+				per_filetype = {
+					codecompanion = { "codecompanion" },
+				},
 			},
 
 			-- Blink.cmp includes an optional, recommended rust fuzzy matcher,
@@ -251,10 +263,19 @@ return {
 
 			-- Shows a signature help window while you type arguments for a function
 			signature = {
-				enabled = true,
-				window = { show_documentation = true },
+				enabled = false,
+				-- window = { show_documentation = true },
 			},
 		},
 	},
-	{ "pl4gue/no-trouble.nvim", event = "VeryLazy", opts = {} },
+	{
+		"pl4gue/no-trouble.nvim",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"folke/trouble.nvim",
+			opts = {},
+			cmd = "Trouble",
+		},
+	},
 }
