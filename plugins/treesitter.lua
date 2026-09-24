@@ -121,11 +121,9 @@ return {
 	},
 	{
 		"Wansmer/treesj",
-		cmd = "TreeSJToggle",
-		keys = { "<space>m", ":TreeSJToggle<CR>" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you install parsers with `nvim-treesitter`
-		opts = {
-			use_default_keymaps = false,
-		},
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		cmd = "TSJToggle",
+		keys = { { "<space>m", ":TSJToggle<CR>" } },
+		opts = { use_default_keymaps = false },
 	},
 }

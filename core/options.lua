@@ -55,6 +55,7 @@ o.relativenumber = true -- Make relative line numbers default
 o.signcolumn = "yes"
 o.showmode = false -- Don't show the mode, since it's already in the status line
 o.pumheight = 10
+opt.conceallevel = 1
 
 o.list = true
 opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
@@ -116,5 +117,3 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
-
-

@@ -248,7 +248,11 @@ return {
 					},
 				},
 				per_filetype = {
-					codecompanion = { "codecompanion" },
+
+					markdown = {
+						inherit_defaults = true, -- NOTE: if your defaults include lsp
+						-- "obsidian",
+					},
 				},
 			},
 
