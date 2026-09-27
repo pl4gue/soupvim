@@ -24,6 +24,11 @@ return {
 					dashboard.button("r", " " .. " Recent files", ":FzfLua oldfiles<CR>"),
 					dashboard.button("g", " " .. " Live grep", ":FzfLua live_grep<CR>"),
 					dashboard.button("c", " " .. " Config", ":FzfLua files cwd=" .. soupvim.soupvim_path .. "<CR>"),
+					dashboard.button(
+						"o",
+						" " .. " Obsidian",
+						":FzfLua files cwd=~/docs/soupsidian/ fd_opts=-e.md<CR>"
+					),
 					dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 				},
 			}

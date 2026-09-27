@@ -8,6 +8,10 @@ return {
 				"telescope",
 				fzf_opts = {
 					["--layout"] = "default", -- keeps prompt/input on top depending on fzf version, or use reverse/default
+					["--ansi"] = false,
+				},
+				winopts = {
+					preview = { default = "bat_native" },
 				},
 			})
 			require("fzf-lua").register_ui_select()
