@@ -31,13 +31,6 @@ This is my souper 🥣 NeoVim config.
 To install SoupVim run the following command on your terminal.
 
 ```sh
-cd ~/.config/nvim/lua/
+cd ~/.config/nvim/
 git clone https://github.com/pl4g/soupvim.git
-```
-
-Then you want your `init.lua` file inside `~/.config/nvim/` to look like this:
-
-```lua
---- init.lua
-require('soupvim')
 ```
