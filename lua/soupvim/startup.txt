@@ -1,0 +1,240 @@
+--- Startup times for process: Primary (or UI client) ---
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.003  000.003: --- NVIM STARTING ---
+000.424  000.421: event init
+000.665  000.241: early init
+000.787  000.122: locale set
+000.892  000.106: init first window
+001.879  000.987: inits 1
+001.928  000.049: window checked
+001.935  000.006: parsing arguments
+003.263  000.130  000.130: require('vim._core.shared')
+003.467  000.010  000.010: require('string.buffer')
+003.549  000.138  000.128: require('vim.inspect')
+003.691  000.120  000.120: require('vim._core.options')
+003.700  000.428  000.171: require('vim._core.editor')
+003.829  000.124  000.124: require('vim._core.system')
+003.835  000.747  000.064: require('vim._init_packages')
+003.843  001.162: init lua interpreter
+007.257  003.414: nvim_ui_attach
+007.892  000.635: nvim_set_client_info
+007.897  000.005: --- NVIM STARTED ---
+
+--- Startup times for process: Embedded ---
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.002  000.002: --- NVIM STARTING ---
+000.245  000.243: event init
+000.421  000.176: early init
+000.493  000.071: locale set
+000.552  000.059: init first window
+001.140  000.588: inits 1
+001.161  000.022: window checked
+001.167  000.005: parsing arguments
+002.318  000.140  000.140: require('vim._core.shared')
+002.536  000.009  000.009: require('string.buffer')
+002.615  000.147  000.138: require('vim.inspect')
+002.750  000.114  000.114: require('vim._core.options')
+002.756  000.429  000.168: require('vim._core.editor')
+002.870  000.110  000.110: require('vim._core.system')
+002.876  000.741  000.062: require('vim._init_packages')
+002.882  000.974: init lua interpreter
+003.004  000.122: expanding arguments
+003.062  000.057: inits 2
+003.713  000.651: init highlight
+003.717  000.004: waiting for UI
+004.006  000.288: done waiting for UI
+004.026  000.020: clear screen
+004.351  000.030  000.030: require('vim.keymap')
+005.849  000.230  000.230: sourcing nvim_exec2()
+005.907  000.019  000.019: require('vim._core.log')
+006.461  002.429  002.151: require('vim._core.defaults')
+006.468  000.013: init default mappings & autocommands
+007.658  000.113  000.113: sourcing /usr/share/nvim/runtime/ftplugin.vim
+007.788  000.056  000.056: sourcing /usr/share/nvim/runtime/indent.vim
+008.036  000.138  000.138: sourcing /usr/share/nvim/archlinux.lua
+008.045  000.186  000.048: sourcing /etc/xdg/nvim/sysinit.vim
+009.049  000.094  000.094: require('vim.fs')
+009.238  000.178  000.178: require('vim.uri')
+009.352  000.468  000.197: require('vim.loader')
+009.457  000.082  000.082: require('vim._core.ui2')
+009.795  000.318  000.318: require('vim._core.ui2.cmdline')
+010.072  000.271  000.271: require('vim._core.ui2.messages')
+010.368  000.198  000.198: require('soupvim.api')
+010.605  000.131  000.131: require('soupvim.core.autocmds')
+010.977  000.365  000.365: require('soupvim.core.options')
+011.567  000.584  000.584: require('soupvim.core.keymaps')
+012.489  000.113  000.113: sourcing /usr/share/nvim/runtime/pack/dist/opt/nvim.undotree/plugin/undotree.lua
+013.156  000.074  000.074: sourcing /usr/share/nvim/runtime/pack/dist/opt/nohlsearch/plugin/nohlsearch.vim
+013.237  001.663  001.477: require('soupvim.core.plugins')
+013.243  002.869  000.125: require('soupvim.core')
+013.959  000.236  000.236: require('vim._async')
+013.990  000.740  000.504: require('vim.pack')
+014.197  000.016  000.016: require('vim.F')
+014.779  000.288  000.288: require('vim.version')
+016.743  000.109  000.109: require('zpack.api')
+016.759  001.017  000.908: require('zpack')
+016.868  000.094  000.094: require('zpack.state')
+017.058  000.184  000.184: require('zpack.validate')
+017.454  000.129  000.129: require('zpack.utils')
+017.464  000.392  000.263: require('zpack.import')
+017.627  000.072  000.072: require('soupvim.plugins.buffers')
+017.824  000.088  000.088: require('soupvim.plugins.colorscheme')
+018.163  000.104  000.104: require('soupvim.plugins.dashboard')
+018.529  000.263  000.263: require('soupvim.plugins.editor')
+018.694  000.110  000.110: require('soupvim.plugins.files')
+018.869  000.108  000.108: require('soupvim.plugins.format')
+019.102  000.090  000.090: require('soupvim.plugins.fuzzy')
+019.216  000.071  000.071: require('soupvim.plugins.git')
+019.440  000.085  000.085: require('soupvim.plugins.lint')
+019.743  000.288  000.288: require('soupvim.plugins.lsp')
+020.149  000.142  000.142: require('soupvim.plugins.obsidian')
+020.352  000.165  000.165: require('soupvim.plugins.treesitter')
+020.514  000.122  000.122: require('zpack.hooks')
+020.653  000.123  000.123: require('zpack.merge')
+021.042  000.132  000.132: require('zpack.keymap')
+021.053  000.233  000.101: require('zpack.plugin_loader')
+021.165  000.108  000.108: require('zpack.lazy_trigger.refire')
+021.172  000.432  000.091: require('zpack.lazy_trigger.event')
+021.265  000.090  000.090: require('zpack.lazy_trigger.ft')
+021.393  000.123  000.123: require('zpack.lazy_trigger.cmd')
+021.534  000.136  000.136: require('zpack.lazy_trigger.keys')
+021.546  000.887  000.106: require('zpack.lazy')
+023.716  000.146  000.146: require('zpack.registration')
+026.385  000.376  000.376: require('zpack.module_loader')
+026.723  000.326  000.326: require('zpack.startup')
+028.411  000.234  000.234: require('zpack.commands')
+028.433  020.312  009.574: require('soupvim')
+028.439  020.341  000.028: sourcing /home/plague/.config/nvim/init.lua
+028.455  001.292: sourcing vimrc file(s)
+028.894  000.043  000.043: sourcing /usr/share/vim/vimfiles/ftdetect/meson.vim
+028.905  000.291  000.248: sourcing nvim_exec2() called at /usr/share/nvim/runtime/filetype.lua:0
+028.917  000.386  000.095: sourcing /usr/share/nvim/runtime/filetype.lua
+029.208  000.112  000.112: sourcing /usr/share/nvim/runtime/syntax/synload.vim
+029.363  000.359  000.247: sourcing /usr/share/nvim/runtime/syntax/syntax.vim
+030.535  000.332  000.332: sourcing /usr/share/nvim/runtime/plugin/gzip.vim
+031.540  000.333  000.333: sourcing /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+031.649  001.071  000.737: sourcing /usr/share/nvim/runtime/plugin/matchit.vim
+031.886  000.205  000.205: sourcing /usr/share/nvim/runtime/plugin/matchparen.vim
+031.934  000.014  000.014: sourcing /usr/share/nvim/runtime/plugin/netrwPlugin.vim
+032.172  000.013  000.013: sourcing /home/plague/.local/share/nvim/rplugin.vim
+032.184  000.218  000.205: sourcing /usr/share/nvim/runtime/plugin/rplugin.vim
+032.397  000.183  000.183: sourcing /usr/share/nvim/runtime/plugin/tarPlugin.vim
+032.462  000.029  000.029: sourcing /usr/share/nvim/runtime/plugin/tutor.vim
+032.744  000.251  000.251: sourcing /usr/share/nvim/runtime/plugin/zipPlugin.vim
+032.909  000.130  000.130: sourcing /usr/share/nvim/runtime/plugin/editorconfig.lua
+033.123  000.180  000.180: sourcing /usr/share/nvim/runtime/plugin/man.lua
+033.267  000.095  000.095: sourcing /usr/share/nvim/runtime/plugin/net.lua
+033.423  000.076  000.076: sourcing /usr/share/nvim/runtime/plugin/osc52.lua
+033.584  000.124  000.124: sourcing /usr/share/nvim/runtime/plugin/shada.lua
+033.695  000.058  000.058: sourcing /usr/share/nvim/runtime/plugin/spellfile.lua
+033.871  000.035  000.035: sourcing /usr/share/nvim/runtime/pack/dist/opt/nohlsearch/plugin/nohlsearch.vim
+034.040  000.054  000.054: sourcing /usr/share/nvim/runtime/pack/dist/opt/nvim.undotree/plugin/undotree.lua
+035.206  001.022  001.022: sourcing /usr/share/vim/vimfiles/plugin/fzf.vim
+035.380  000.114  000.114: sourcing /usr/share/vim/vimfiles/plugin/redact_pass.vim
+035.389  001.998: loading rtp plugins
+035.681  000.292: loading packages
+035.685  000.004: loading after plugins
+035.708  000.023: inits 3
+040.387  004.679: reading ShaDa
+040.542  000.155: opening buffers
+040.577  000.035: BufEnter autocommands
+040.583  000.005: editing files in windows
+043.254  000.082  000.082: require('base46.colors')
+043.268  000.374  000.292: require('base46')
+043.305  001.444  001.071: require('base46')
+043.406  000.096  000.096: require('base46.themes.rxyhn')
+043.722  000.304  000.304: sourcing nvim_exec2() called at /home/plague/.local/share/nvim/site/pack/core/opt/base46/colors/base46-rxyhn.lua:0
+043.875  000.126  000.126: require('base46.integrations.dap')
+044.765  000.142  000.142: require('base46.integrations.tiny-inline-diagnostic')
+044.967  000.071  000.071: require('base46.integrations.snacks-dashboard')
+045.638  000.342  000.342: require('base46.integrations.render-markdown')
+045.820  000.113  000.113: require('base46.integrations.orgmode')
+045.934  000.065  000.065: require('base46.integrations.nvshades')
+046.116  000.160  000.160: require('base46.integrations.neogit')
+046.662  000.124  000.124: require('base46.integrations.navic')
+046.917  000.088  000.088: require('base46.integrations.mini-icons')
+047.036  000.071  000.071: require('base46.integrations.mini-tabline')
+047.252  000.076  000.076: require('base46.integrations.markview')
+047.400  000.080  000.080: require('base46.integrations.leap')
+047.500  000.068  000.068: require('base46.integrations.hop')
+047.588  000.059  000.059: require('base46.integrations.grug_far')
+047.770  000.090  000.090: require('base46.integrations.mason')
+048.222  000.403  000.403: require('base46.integrations.cmp')
+048.589  000.106  000.106: require('base46.integrations.edgy')
+048.731  000.081  000.081: require('base46.integrations.diffview')
+048.834  000.075  000.075: require('base46.integrations.codeactionmenu')
+049.043  000.094  000.094: require('base46.integrations.bufferline')
+049.437  000.170  000.170: require('base46.integrations.statusline.default')
+049.444  000.254  000.085: require('base46.integrations.statusline')
+049.884  000.264  000.264: require('base46.integrations.git')
+050.247  000.198  000.198: require('base46.integrations.treesitter')
+050.756  000.095  000.095: require('base46.integrations.alpha')
+050.884  000.094  000.094: require('base46.integrations.gitsigns')
+051.148  000.234  000.234: require('base46.integrations.telescope')
+051.515  000.282  000.282: require('base46.integrations.blink')
+051.805  000.108  000.108: require('base46.integrations.flash')
+051.962  000.125  000.125: require('base46.integrations.trouble')
+052.205  000.135  000.135: require('base46.integrations.lsp')
+052.560  000.291  000.291: require('base46.integrations.defaults')
+053.074  000.095  000.095: require('base46.integrations.avante')
+053.230  000.094  000.094: require('base46.integrations.whichkey')
+053.485  000.212  000.212: require('base46.integrations.tbline')
+053.867  000.271  000.271: require('base46.integrations.nvimtree')
+054.326  000.246  000.246: require('base46.integrations.nvcheatsheet')
+054.806  000.386  000.386: require('base46.integrations.devicons')
+055.127  000.111  000.111: require('base46.integrations.blankline')
+055.245  000.069  000.069: require('base46.integrations.neotest')
+055.412  000.081  000.081: require('base46.integrations.blink-pair')
+055.581  000.127  000.127: require('base46.integrations.git-conflict')
+055.702  000.089  000.089: require('base46.integrations.syntax')
+055.842  000.059  000.059: require('base46.integrations.lspsaga')
+055.929  000.061  000.061: require('base46.integrations.rainbowdelimiters')
+056.054  000.093  000.093: require('base46.integrations.semantic_tokens')
+056.244  000.067  000.067: require('base46.integrations.todo')
+056.434  000.066  000.066: require('base46.integrations.vim-illuminate')
+056.521  000.060  000.060: require('base46.integrations.notify')
+056.679  014.931  006.384: sourcing /home/plague/.local/share/nvim/site/pack/core/opt/base46/colors/base46-rxyhn.lua
+056.698  016.031  001.101: sourcing nvim_exec2() called at VimEnter Autocommands for "*":0
+057.831  000.194  000.194: sourcing /home/plague/.local/share/nvim/site/pack/core/opt/fzf-lua/plugin/fzf-lua.lua
+059.550  000.249  000.249: require('vim.func')
+059.701  000.064  000.064: require('vim.func._memoize')
+059.723  000.737  000.424: require('fzf-lua.utils')
+060.009  000.087  000.087: require('fzf-lua.lib.base64')
+060.248  000.233  000.233: require('fzf-lua.lib.serpent')
+060.257  000.530  000.210: require('fzf-lua.libuv')
+060.302  001.478  000.211: require('fzf-lua.path')
+060.846  000.289  000.289: require('fzf-lua.actions')
+061.014  000.054  000.054: require('fzf-lua.class')
+061.040  000.188  000.134: require('fzf-lua.devicons')
+061.847  000.293  000.293: require('fzf-lua.previewer')
+063.211  002.165  001.871: require('fzf-lua.defaults')
+063.237  002.929  000.287: require('fzf-lua.config')
+063.545  000.035  000.035: sourcing /home/plague/.local/share/nvim/site/pack/core/opt/fzf-lua/autoload/fzf_lua.vim
+063.556  000.137  000.102: sourcing nvim_exec2() called at VimEnter Autocommands for "*":0
+065.203  000.677  000.677: require('fzf-lua.win')
+066.790  000.778  000.778: require('fzf-lua.fzf')
+067.246  000.448  000.448: require('fzf-lua.shell')
+067.266  002.050  000.824: require('fzf-lua.core')
+067.442  000.145  000.145: require('fzf-lua.make_entry')
+067.486  009.435  002.018: require('fzf-lua')
+070.409  000.109  000.109: require('fzf-lua.ctx')
+070.534  000.115  000.115: require('fzf-lua.providers.ui_select')
+070.620  000.079  000.079: require('vim.ui')
+071.268  000.108  000.108: require('alpha.themes.dashboard')
+071.735  000.390  000.390: require('soupvim.plugins.dashboard.headers')
+072.179  000.152  000.152: require('alpha')
+076.664  009.469: VimEnter autocommands
+076.771  000.106: UIEnter autocommands
+076.775  000.005: before starting main loop
+079.037  000.032  000.032: require('vim._core.util')
+079.229  002.421: first screen update
+079.233  000.004: --- NVIM STARTED ---
+

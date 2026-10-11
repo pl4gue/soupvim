@@ -1,7 +1,7 @@
 local M = {}
 
 local function check_executable(name, required)
-    required = required or false
+	required = required or false
 
 	if vim.fn.executable(name) == 1 then
 		vim.health.ok(name .. " is installed")
@@ -13,7 +13,7 @@ local function check_executable(name, required)
 end
 
 local function check_plugin(name)
-	local ok, _ = pcall(require, "zpack")
+	local ok, _ = pcall(require, name)
 	if ok then
 		vim.health.ok(name .. " is loaded")
 	else
@@ -22,9 +22,7 @@ local function check_plugin(name)
 end
 
 function M.check()
-	-- vim.health.start("SoupVim")
 	vim.health.ok("Soupvim started")
-
 	local version = vim.version()
 
 	if vim.version.cmp(version, { 0, 11, 0 }) >= 0 then
@@ -34,8 +32,12 @@ function M.check()
 	end
 
 	check_executable("git")
+	check_executable("tree-sitter")
+	check_executable("fzf")
+	check_executable("rg")
+	check_executable("fd")
 
-    check_plugin('zpack')
+	check_plugin("zpack")
 end
 
 return M

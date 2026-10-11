@@ -4,8 +4,8 @@ return {
 		event = "VeryLazy",
 		opts = {
 			mappings = {
-				around_next = "",
-				inside_next = "",
+				around_next = "aa",
+				inside_next = "ii",
 				around_last = "",
 				inside_last = "",
 			},
@@ -40,28 +40,4 @@ return {
 		end,
 	},
 	{ "nvim-mini/mini.pairs", event = "VeryLazy", opts = {} },
-	{
-		"nvim-mini/mini.sessions",
-		opts = {
-			hooks = {
-
-				pre = {
-					read = function()
-						require("soupvim.core.buffers").serialize_state()
-					end,
-					write = function()
-						require("soupvim.core.buffers").serialize_state()
-					end,
-				},
-				post = {
-					read = function()
-						require("soupvim.core.buffers").hydrate_state()
-					end,
-					write = function()
-						require("soupvim.core.buffers").hydrate_state()
-					end,
-				},
-			},
-		},
-	},
 }

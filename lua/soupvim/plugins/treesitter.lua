@@ -9,6 +9,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		cond = vim.fn.executable("tree-sitter") == 1,
 		lazy = vim.fn.argc(-1) == 0,
 		branch = "main",
 		event = { "BufReadPost", "BufNewFile", "VeryLazy" },
@@ -38,8 +39,6 @@ return {
 				"regex",
 			}
 
-			vim.opt.rtp:append(soupvim.soupvim_path)
-
 			require("nvim-treesitter").install(parsers)
 
 			---@param buf integer
@@ -68,7 +67,7 @@ return {
 			end
 
 			local available_parsers = require("nvim-treesitter").get_available()
-			soupvim.create_autocmd("FileType", {
+			soupvim:create_autocmd("FileType", {
 				callback = function(args)
 					local buf, filetype = args.buf, args.match
 

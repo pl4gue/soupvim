@@ -1,8 +1,8 @@
 local servers = {
-	-- clangd = {},
-	-- bashls = {},
-	-- pyright = {},
-	-- gopls = {},
+	clangd = {},
+	bashls = {},
+	pyright = {},
+	gopls = {},
 
 	rust_analyzer = {},
 
@@ -36,7 +36,7 @@ local servers = {
 	},
 }
 
-soupvim.lsp_on_attach(function(event)
+soupvim:lsp_on_attach(function(event)
 	---@diagnostic disable-next-line: redefined-local
 	local map = function(mode, lhs, rhs, desc)
 		vim.keymap.set(mode, lhs, rhs, { buffer = event.buf, desc = desc })
@@ -56,38 +56,57 @@ soupvim.lsp_on_attach(function(event)
 	map("n", "]d", function()
 		require("no-trouble").actions.next()
 	end, "Go to next diagnostic in workspace (no-trouble)")
-
-	-- The following code creates a keymap to toggle inlay hints in your
-	-- code, if the language server you are using supports them
-	local client = vim.lsp.get_client_by_id(event.data.client_id)
-	if client then
-		if client:supports_method("textDocument/inlayHint", event.buf) then
-			map("n", "<leader>th", function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-			end, "[T]oggle Inlay [H]ints")
-		end
-
-		if client:supports_method("workspace/diagnostic", event.buf) then
-			vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
-		end
-	end
-
 	vim.diagnostic.config({
 		virtual_text = {
 			current_line = false,
 		},
 		virtual_lines = { current_line = true },
 	})
+
+	-- The following code creates a keymap to toggle inlay hints in your
+	-- code, if the language server you are using supports them
+	local client = vim.lsp.get_client_by_id(event.data.client_id)
+	if not client then
+		return
+	end
+
+	if client:supports_method("textDocument/inlayHint", event.buf) then
+		map("n", "<leader>th", function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+		end, "[T]oggle Inlay [H]ints")
+	end
+
+	if client:supports_method("workspace/diagnostic", event.buf) then
+		vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
+	end
 end)
 
 return {
 	{ "mason-org/mason.nvim", event = "VeryLazy", opts = {} },
 	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				"~/.config/nvim/lua/soupvim/",
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				{ path = "snacks.nvim", words = { "Snacks" } },
+
+				"${3rd}/busted/library",
+			},
+			enabled = function(_)
+				return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+			end,
+		},
+	},
+	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		event = "VeryLazy",
 		dependencies = { "mason-org/mason.nvim" },
 		opts = {
-			auto_update = false,
+			auto_update = true,
 			run_on_start = true,
 			ensure_installed = vim.tbl_keys(servers or {}),
 		},
@@ -112,16 +131,15 @@ return {
 			"saghen/blink.cmp",
 		},
 		config = function()
-			vim.lsp.config("*", {
-				capabilities = require("blink.cmp").get_lsp_capabilities(),
-			})
+			-- vim.lsp.config("*", {
+			-- 	capabilities = require("blink.cmp").get_lsp_capabilities(),
+			-- })
 
 			for name, server in pairs(servers) do
 				vim.lsp.config(name, server)
 			end
 		end,
 	},
-
 	{
 		"saghen/blink.cmp",
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -248,10 +266,9 @@ return {
 					},
 				},
 				per_filetype = {
-
+					codecompanion = { "codecompanion" },
 					markdown = {
 						inherit_defaults = true, -- NOTE: if your defaults include lsp
-						-- "obsidian",
 					},
 				},
 			},

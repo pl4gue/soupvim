@@ -1,7 +1,4 @@
 return {
-	-- Adds cools signs in the sign column,
-	-- also has a inline blame virtual text.
-
 	"lewis6991/gitsigns.nvim",
 	event = "VeryLazy",
 	opts = {
@@ -10,7 +7,7 @@ return {
 			change = { text = "│" },
 			delete = { text = "", show_count = true },
 			topdelete = { text = "‾", show_count = true },
-			changedelete = { text = "~", show_count = true },
+			changedelete = { text = "×", show_count = true },
 			untracked = { text = "┆" },
 		},
 		signs_staged = {
@@ -18,7 +15,7 @@ return {
 			change = { text = "│" },
 			delete = { text = "", show_count = true },
 			topdelete = { text = "‾", show_count = true },
-			changedelete = { text = "~", show_count = true },
+			changedelete = { text = "×", show_count = true },
 			untracked = { text = "┆" },
 		},
 

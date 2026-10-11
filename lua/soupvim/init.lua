@@ -20,7 +20,8 @@
 ╰──────────────────────────────────────────────────────────╯
 ]]
 
-_G.soupvim = require("soupvim.utils")
-soupvim.require("core")
-soupvim.setup_user_command()
-soupvim.setup_plugins()
+vim.loader.enable()
+require("vim._core.ui2").enable({})
+
+_G.soupvim = require("soupvim.api")
+soupvim.setup()
